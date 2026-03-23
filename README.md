@@ -14,6 +14,19 @@ Open WebUI + Ollama によるローカルRAGスタック。
 | Embedding | nomic-embed-text（Ollama） |
 | 外部通信 | **なし（完全オフライン）** |
 
+## 構成図
+```
+ブラウザ (localhost:8080)
+        ↓
+  Open WebUI (Docker)
+        ↓
+  Ollama (Docker)
+  ├── qwen3.5:9b（LLM）
+  └── nomic-embed-text（Embedding）
+
+外部通信：なし（完全ローカル）
+```
+
 ## 前提条件
 - Python 3.11+
 - Ollama インストール済み
@@ -29,6 +42,15 @@ ollama pull nomic-embed-text
 pip install open-webui
 open-webui serve
 \```
+
+## Docker で起動する場合
+```bash
+docker-compose up -d
+
+# モデルのインストール
+docker exec ollama ollama pull qwen3.5:9b
+docker exec ollama ollama pull nomic-embed-text
+```
 
 ブラウザで http://localhost:8080 を開く
 
